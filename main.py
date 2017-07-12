@@ -35,7 +35,9 @@ def newpost():
             new_post = Blog(post_title, post_body)
             db.session.add(new_post)
             db.session.commit()
-            return redirect('/blog')
+
+            post_id = str(new_post.id)
+            return redirect('/blog?id=' + post_id)
 
         if not post_title:
             flash('Please fill in the title', 'error_title')
