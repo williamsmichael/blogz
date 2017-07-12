@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Add a Blog Entry</h1>
+<form method="post">
+    <label>
+        Title for your new blog:
+        <input type="text" name="post_title" value="{{ post_title }}" autofocus>
+    </label>
+
+    <!-- flash message -->
+    {% with errors = get_flashed_messages(category_filter=["error_title"]) %}
+    {% if errors %}
+    {% for msg in errors %}
+    <p class="error">{{ msg }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+    <label>
+        Your new blog:
+        <textarea rows="4" cols="50" name="post_body">{{ post_body }}</textarea>
+    </label>
+
+    <!-- flash message -->
+    {% with errors = get_flashed_messages(category_filter=["error_body"]) %}
+    {% if errors %}
+    {% for msg in errors %}
+    <p class="error">{{ msg }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <input type="submit" value="Add Entry">
+</form>
+
+{% endblock %}
