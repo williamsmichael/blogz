@@ -49,6 +49,12 @@ def newpost():
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
 
+    post_id = request.args.get('id')
+
+    if post_id:
+        post = Blog.query.get(post_id)
+        return render_template('viewpost.html', title='viewpost', post=post)
+
     posts = Blog.query.all()    
     return render_template('posts.html', title='posts', posts=posts)    
 

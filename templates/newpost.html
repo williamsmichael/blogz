@@ -5,7 +5,7 @@
 <h1>Add a Blog Entry</h1>
 <form method="post">
     <label>
-        Title for your new blog:
+        Post title:
         <input type="text" name="post_title" value="{{ post_title }}" autofocus>
     </label>
 
@@ -19,7 +19,7 @@
     {% endwith %}
     
     <label>
-        Your new blog:
+        Post content:
         <textarea rows="4" cols="50" name="post_body">{{ post_body }}</textarea>
     </label>
 
@@ -31,8 +31,9 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-
+    
     <input type="submit" value="Add Entry">
+
 </form>
 
 {% endblock %}
