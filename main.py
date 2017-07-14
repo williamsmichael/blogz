@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,12 +15,41 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    body = db.Column(db.String(250))
+    body = db.Column(db.String(10000))
+    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __init__(self, title, body):
         self.title = title
         self.body = body 
 
+
+
+@app.template_filter()
+def timesince(dt, default="just now"):
+    """
+    Returns string representing "time since" e.g.
+    3 days ago, 5 hours ago etc.
+    """
+
+    now = datetime.utcnow()
+    diff = now - dt
+    
+    periods = (
+        (diff.days / 365, "year", "years"),
+        (diff.days / 30, "month", "months"),
+        (diff.days / 7, "week", "weeks"),
+        (diff.days, "day", "days"),
+        (diff.seconds / 3600, "hour", "hours"),
+        (diff.seconds / 60, "minute", "minutes"),
+        (diff.seconds, "second", "seconds"),
+    )
+
+    for period, singular, plural in periods:
+        
+        if period:
+            return "%d %s ago" % (period, singular if period == 1 else plural)
+
+    return default
 
 
 @app.route('/newpost', methods=['POST', 'GET'])
@@ -57,7 +87,7 @@ def index():
         post = Blog.query.get(post_id)
         return render_template('viewpost.html', title='viewpost', post=post)
 
-    posts = Blog.query.all()    
+    posts = Blog.query.order_by(Blog.created.desc()).all()   
     return render_template('posts.html', title='posts', posts=posts)    
 
 

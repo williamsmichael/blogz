@@ -18,9 +18,9 @@
     {% endif %}
     {% endwith %}
     
-    <label>
+    <label> 
         Post content:
-        <textarea rows="4" cols="50" name="post_body">{{ post_body }}</textarea>
+        <textarea name="post_body">{{ post_body }}</textarea>
     </label>
 
     <!-- flash message -->
@@ -31,7 +31,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-    
+
     <input type="submit" value="Add Entry">
 
 </form>
