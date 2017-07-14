@@ -3,14 +3,14 @@ body {
     color: #333;
 }
 .container {
-    width: 80%;
+    width: 45%;
     margin: 0 auto;
 }
 .error {
     color: #CD6155;
     font-style: italic;
 }
-.datetime {
+.small {
     color: #aaa;
     font-size: 0.8em;
 }
@@ -24,7 +24,7 @@ h1 {
     margin-bottom: 40px;
 }
 a:nth-child(2) {
-    margin-left: 10px;
+    margin-left: 7.5px;
 }
 a {
     outline: none;
@@ -101,4 +101,16 @@ input[type="submit"] {
 } 
 input[type="submit"]:hover {
     background-color: #265301;
+}
+footer {
+    text-align: center;
+    margin-top: 70px;
+}
+
+/*-----------------------------------media query*/
+
+@media (max-width: 700px) {
+    .container {
+        width: 95%;
+    }
 }

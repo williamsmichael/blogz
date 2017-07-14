@@ -59,12 +59,14 @@ def blog():
         post = Blog.query.get(post_id)
         return render_template('viewpost.html', title='viewpost', post=post)
 
-    posts = Blog.query.order_by(Blog.created.desc()).all()   
+    posts = Blog.query.order_by(Blog.created.desc()).all()  
+
     return render_template('posts.html', title='posts', posts=posts)  
 
 
 @app.route('/')
 def index():
+    
     return redirect('/blog')  
 
 
