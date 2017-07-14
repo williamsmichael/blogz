@@ -79,7 +79,7 @@ def newpost():
 
 
 @app.route('/blog', methods=['POST', 'GET'])
-def index():
+def blog():
 
     post_id = request.args.get('id')
 
@@ -88,7 +88,12 @@ def index():
         return render_template('viewpost.html', title='viewpost', post=post)
 
     posts = Blog.query.order_by(Blog.created.desc()).all()   
-    return render_template('posts.html', title='posts', posts=posts)    
+    return render_template('posts.html', title='posts', posts=posts)  
+
+
+@app.route('/')
+def index():
+    return redirect('/blog')  
 
 
 if __name__ == '__main__':
