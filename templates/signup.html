@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Signup Blogz</h2>
+<p>If you already have an account, <a href="/login">Login here</a></p>
+
+<form action"/newpost" method="post">
+    <label>
+        Username:
+        <input type="text" name="username" value="{{ username }}" autofocus>
+    </label>
+
+    <!-- flash message -->
+    {% with errors = get_flashed_messages(category_filter=["error_username"]) %}
+    {% if errors %}
+    {% for msg in errors %}
+    <p class="error">{{ msg }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <label>
+        Password:
+        <input type="password" name="password" value="{{ password }}">
+    </label>
+
+    <!-- flash message -->
+    {% with errors = get_flashed_messages(category_filter=["error_password"]) %}
+    {% if errors %}
+    {% for msg in errors %}
+    <p class="error">{{ msg }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <label>
+        Verify Password:
+        <input type="password" name="verify" value="{{ verify }}">
+    </label>
+
+    <!-- flash message -->
+    {% with errors = get_flashed_messages(category_filter=["error_password_2"]) %}
+    {% if errors %}
+    {% for msg in errors %}
+    <p class="error">{{ msg }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <input type="submit" value="Signup">
+
+</form>
+
+{% endblock %}
+
+
