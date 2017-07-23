@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Login Blogz</h2>
+<h1>Login Blogz</h1>
 <p>If you do not have an account, <a href="/signup">Signup here</a></p>
 
 <form action"/newpost" method="post">
@@ -12,9 +12,9 @@
     </label>
 
     <!-- flash message -->
-    {% with errors = get_flashed_messages(category_filter=["error_username"]) %}
-    {% if errors %}
-    {% for msg in errors %}
+    {% with messages = get_flashed_messages(category_filter=["error_username"]) %}
+    {% if messages %}
+    {% for msg in messages %}
     <p class="error">{{ msg }}</p>
     {% endfor %}
     {% endif %}
@@ -26,9 +26,9 @@
     </label>
 
     <!-- flash message -->
-    {% with errors = get_flashed_messages(category_filter=["error_password"]) %}
-    {% if errors %}
-    {% for msg in errors %}
+    {% with messages = get_flashed_messages(category_filter=["error_password"]) %}
+    {% if messages %}
+    {% for msg in messages %}
     <p class="error">{{ msg }}</p>
     {% endfor %}
     {% endif %}

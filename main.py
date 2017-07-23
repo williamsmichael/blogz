@@ -69,41 +69,6 @@ def check_password(password, verify):
     return error_password
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        user = User.query.filter_by(username=username).first()
-
-        # no errors
-        if user and user.password == password:
-            session['username'] = username
-            # TODO: Flash Success Message
-            # flash('You are in. Blog away!', 'success_login')
-            return redirect('/newpost')
-
-        # errors
-        elif not user:
-            flash('Username not found', 'error_username')
-            print(username)
-        
-        # errors
-        else:
-            flash('Username Password combo not found', 'error_password')
-           
-        # provide state of attempted form 
-        return render_template('login.html', 
-            title='login',
-            username=username,
-            password=password)
-  
-    return render_template('login.html', 
-        title='login')
-
-
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
@@ -113,8 +78,6 @@ def signup():
 
         error_username = check_username(username)
         error_password = check_password(password, verify)
-        print("username", error_username)
-        print("password", error_password)
 
         existing_user = User.query.filter_by(username=username).first()
 
@@ -125,8 +88,6 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
-            # TODO: Flash Success Message
-            # flash('You are in. Blog away!', 'success_signup')
             return redirect('/newpost')
 
         # errors 
@@ -154,7 +115,7 @@ def signup():
 def newpost():
 
     post_title, post_body = '', ''
-    # owner = User.query.filter_by(username=session['username']).first()
+    owner = User.query.filter_by(username=session['username']).first()
     
     if request.method == 'POST':
         post_title = request.form['post_title']
@@ -198,6 +159,51 @@ def blog():
 def index():
     
     return redirect('/blog')  
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user = User.query.filter_by(username=username).first()
+
+        # no errors
+        if user and user.password == password:
+            session['username'] = username
+            return redirect('/newpost')
+
+        # errors
+        elif not user:
+            flash('Username not found', 'error_username')
+        
+        # errors
+        else:
+            flash('Username Password combo not found', 'error_password')
+           
+        # provide state of attempted form 
+        return render_template('login.html', 
+            title='login',
+            username=username,
+            password=password)
+  
+    return render_template('login.html', 
+        title='login')
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    del session['username']
+    return redirect('/blog')
+
+
+@app.before_request
+def require_login():
+    allowed_routes = ['signup', 'login', 'blog', 'index']
+    if request.endpoint not in allowed_routes and 'username' not in session:
+        return redirect('/login')
 
 
 if __name__ == '__main__':

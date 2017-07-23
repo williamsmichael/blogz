@@ -14,11 +14,32 @@
 
 <div class="container">
 
+{% if 'username' in session %}
+<a href="/">Blogz</a>
 <a href="/blog">Main Blog Page</a>
 <a href="/newpost">Add Blog Entry</a>
+{% else %}
+<a href="/">Blogz</a>
+<a href="/blog">Main Blog Page</a>
+{% endif %}
+
+
+<div class="align_right">
+    {% if 'username' in session %}
+    {{ session['username'] }}
+    {% else %}
+    <a href="/login">Login</a> |<a href="/signup">Signup</a>
+    {% endif %}
+</div>
 
 {% block content %}
 {% endblock %}
+
+{% if 'username' in session %}
+<form action="/logout" method="post" id="logout">
+    <input class="large_button" type="submit" value="Log out">
+</form>
+{% endif %}
 
 </div>
 
