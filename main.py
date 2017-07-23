@@ -145,10 +145,17 @@ def newpost():
 def blog():
 
     post_id = request.args.get('id')
+    user_id = request.args.get('user')
 
     if post_id:
         post = Blog.query.get(post_id)
         return render_template('viewpost.html', title='viewpost', post=post)
+
+    if user_id:
+        user_id = int(user_id)
+        user = User.query.get(user_id)
+        user_posts = user.blogs
+        return render_template('viewuser.html', title='viewuser', user=user, user_posts=user_posts)
 
     posts = Blog.query.order_by(Blog.created.desc()).all()  
 
@@ -158,7 +165,10 @@ def blog():
 @app.route('/')
 def index():
     
-    return redirect('/blog')  
+    contributors = User.query.all()
+    contributors = User.query.order_by(User.username.asc()).all()
+
+    return render_template('index.html', title='contributors', contributors=contributors)  
 
 
 @app.route('/login', methods=['POST', 'GET'])

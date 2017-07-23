@@ -2,16 +2,15 @@
 
 {% block content %}
 
-<h1>Build a Blog</h1>
+<h1>{{ user.username }}</h1>
 
-{% if posts|length == 0 %}
+{% if user_posts|length == 0 %}
 
     <p>No posts, yet...</p>
-    <p>Become a contributor today, <a href="/signup">Signup here</a></p>
 
 {% else %}
 
-    {% for post in posts %}
+    {% for post in user_posts %}
     <h2><a href="/blog?id={{ post.id }}">{{ post.title }}</a></h2>
     <p>{{ post.body }}</p>
     <p class="small">Contributor: <a href="/blog?user={{ post.owner.id }}">{{ post.owner.username }}</a></p>
@@ -20,5 +19,4 @@
     {% endfor %}
 
 {% endif %}
-
 {% endblock %}

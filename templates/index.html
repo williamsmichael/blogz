@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Blogz Contributors</h1>
+
+{% if contributors|length == 0 %}
+
+    <p>No contributors, yet...</p>
+    <p>Become a contributor today, <a href="/signup">Signup here</a></p>
+
+{% else %}
+
+    {% for contributor in contributors %}
+    <p>{{ contributor.username }} <a href="/blog?user={{ contributor.id }}">View posts</a></p>
+    {% endfor %}
+    
+{% endif %}
+
+{% endblock %}
