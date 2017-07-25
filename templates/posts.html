@@ -6,9 +6,8 @@
 
 {% if posts|length == 0 %}
 
-    <p>No posts, yet...</p>
-    <p>Become a contributor today, <a href="/signup">Signup here</a></p>
-
+<p>No posts, yet...</p>
+<p>Become a contributor today, <a href="/signup">Signup here</a></p>
 {% else %}
 
     {% for post in posts %}
@@ -17,8 +16,8 @@
     <p class="small">Contributor: <a href="/blog?user={{ post.owner.id }}">{{ post.owner.username }}</a></p>
     <p class="small">{{ post.created }}</p>
     <hr>
-    {% endfor %}
 
+    {% endfor %}
 {% endif %}
 
 <!-- TODO: pagination throughout - add a block content tag on the base.html to look for this data input -->

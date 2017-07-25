@@ -6,17 +6,17 @@
 
 {% if user_posts|length == 0 %}
 
-    <p>No posts, yet...</p>
-
+<p>No posts, yet...</p>
 {% else %}
 
-    {% for post in user_posts %}
+    {% for post in user_posts|sort(attribute='created', reverse=True) %}
     <h2><a href="/blog?id={{ post.id }}">{{ post.title }}</a></h2>
     <p>{{ post.body }}</p>
     <p class="small">Contributor: <a href="/blog?user={{ post.owner.id }}">{{ post.owner.username }}</a></p>
     <p class="small">{{ post.created }}</p>
     <hr>
-    {% endfor %}
 
+    {% endfor %}
 {% endif %}
+
 {% endblock %}

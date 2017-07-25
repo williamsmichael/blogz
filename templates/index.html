@@ -6,9 +6,8 @@
 
 {% if contributors|length == 0 %}
 
-    <p>No contributors, yet...</p>
-    <p>Become a contributor today, <a href="/signup">Signup here</a></p>
-
+<p>No contributors, yet...</p>
+<p>Become a contributor today, <a href="/signup">Signup here</a></p>
 {% else %}
 
     {% for contributor in contributors %}
@@ -20,8 +19,8 @@
         {% else %}
             <a href="/blog?user={{ contributor.id }}" class="small">View posts</a>
         {% endif %}
-
     </p>
+    
     {% endfor %}
 {% endif %}
 
