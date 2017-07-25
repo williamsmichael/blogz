@@ -1,43 +1,8 @@
 from flask import Flask, request, redirect, render_template, flash, session
-from flask_sqlalchemy import SQLAlchemy
 import datetime
+from app import app, db
+from models import Blog, User 
 from hashutils import make_pw_hash, check_pw_hash
-
-app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:root@localhost:8889/blogz'
-app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
-app.secret_key = 'J@+2x\LEQqBMw`*S'
-
-
-
-class Blog(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120))
-    body = db.Column(db.Text)
-    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    def __init__(self, title, body, owner):
-        self.title = title
-        self.body = body 
-        self.owner = owner
-
-
-
-class User(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), unique=True)
-    pw_hash = db.Column(db.String(120))
-    blogs = db.relationship('Blog', backref='owner')
-
-    def __init__(self, username, password):
-        self.username = username
-        self.pw_hash = make_pw_hash(password)
-
 
 
 def check_username(username):
@@ -74,7 +39,6 @@ def check_password(password, verify):
 def signup():
     if request.method == 'POST':
         username = request.form['username'].strip()
-        # TODO: Hash and salt password
         password = request.form['password']
         verify = request.form['verify']
 
@@ -220,6 +184,8 @@ def require_login():
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
+
+app.secret_key = '^N#W-q<t,F2zmQ#'
 
 if __name__ == '__main__':
     app.run()
