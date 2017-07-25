@@ -14,36 +14,39 @@
 
 <div class="container">
 
-{% if 'username' in session %}
-<a href="/">Blogz</a>
-<a href="/blog">Main Blog Page</a>
-<a href="/newpost">Add Blog Entry</a>
-{% else %}
-<a href="/">Blogz</a>
-<a href="/blog">Main Blog Page</a>
-{% endif %}
-
-
-<div class="align_right">
+    <!-- dynamic nav menu -->
     {% if 'username' in session %}
-    {{ session['username'] }}
+    <a href="/">Contributors</a>
+    <a href="/blog">Posts</a>
+    <a href="/newpost">Entry</a>
+
+    <div class="align_right">
+        Hej {{ session['username'] }}
+    </div>
+
     {% else %}
-    <a href="/login">Login</a> |<a href="/signup">Signup</a>
+    <a href="/">Contributors</a>
+    <a href="/blog">Posts</a>
+
+    <div class="align_right">
+        <a href="/login">Login</a> |<a href="/signup">Register</a>
+    </div>
     {% endif %}
+
+    <!-- dynamic template content -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- logout placed near footer -->
+    {% if 'username' in session %}
+    <form action="/logout" method="post" id="logout">
+        <input class="large_button" type="submit" value="Log out">
+    </form>
+    {% endif %}
+
+    <footer class="small">&copy; 2012 (2017) mple | mdw. Designed &plus; engineered in Portland, OR</footer>
+
 </div>
-
-{% block content %}
-{% endblock %}
-
-{% if 'username' in session %}
-<form action="/logout" method="post" id="logout">
-    <input class="large_button" type="submit" value="Log out">
-</form>
-{% endif %}
-
-</div>
-
-<footer class="small">&copy; 2012 (2017) mple | mdw. Proudly developed in Portland.</footer>
 
 </body>
 </html>

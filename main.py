@@ -73,6 +73,7 @@ def check_password(password, verify):
 def signup():
     if request.method == 'POST':
         username = request.form['username'].strip()
+        # TODO: Hash and salt password
         password = request.form['password']
         verify = request.form['verify']
 
@@ -119,6 +120,8 @@ def newpost():
     
     if request.method == 'POST':
         post_title = request.form['post_title']
+        # TODO: convert text-area to text in model
+        # http://flask-sqlalchemy.pocoo.org/2.1/models/
         post_body = request.form['post_body']
 
         if post_title and post_body:
@@ -155,6 +158,7 @@ def blog():
         user_id = int(user_id)
         user = User.query.get(user_id)
         user_posts = user.blogs
+        # TODO: order by created date
         return render_template('viewuser.html', title='viewuser', user=user, user_posts=user_posts)
 
     posts = Blog.query.order_by(Blog.created.desc()).all()  
@@ -211,7 +215,7 @@ def logout():
 
 @app.before_request
 def require_login():
-    allowed_routes = ['signup', 'login', 'blog', 'index']
+    allowed_routes = ['static', 'signup', 'login', 'blog', 'index']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 

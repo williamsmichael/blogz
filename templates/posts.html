@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Build a Blog</h1>
+<h1>Blogz Posts</h1>
 
 {% if posts|length == 0 %}
 
@@ -20,5 +20,7 @@
     {% endfor %}
 
 {% endif %}
+
+<!-- TODO: pagination throughout - add a block content tag on the base.html to look for this data input -->
 
 {% endblock %}

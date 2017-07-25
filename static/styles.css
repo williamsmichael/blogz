@@ -17,6 +17,19 @@ body {
 .align_right {
     float: right;
 }
+.bubble {
+    background: #CDFEAA;
+    border-radius: 0.8em;
+    -moz-border-radius: 0.8em;
+    -webkit-border-radius: 0.8em;
+    color: #265301;
+    display: inline-block;
+    line-height: 1.6em;
+    text-align: center;
+    width: 1.6em; 
+    font-size: 0.85em;
+    margin-left: 5px;
+}
 hr {
     border: 0;
     height: 1px;
@@ -24,6 +37,7 @@ hr {
 }
 h1 {
     text-align: center;
+    margin-top: 40px;
     margin-bottom: 40px;
     clear: both;
 }
@@ -52,6 +66,13 @@ a:hover {
 a:active {
     background: #265301;
     color: #CDFEAA;
+}
+a.disabled:visited, a.disabled:active {
+    color: #aaa;
+}
+a.disabled:hover {
+    background: initial;
+    border-bottom: 0px;
 }
 p {
     line-height: 1.4;
@@ -83,6 +104,7 @@ textarea
 }
 textarea {
     overflow: hidden;
+    height: 90px;
 }
 input[type=text]:focus,
 input[type=password]:focus,
