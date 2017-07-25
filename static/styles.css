@@ -17,6 +17,9 @@ body {
 .align_right {
     float: right;
 }
+.preserve_whitespace {
+    white-space: pre-wrap;
+}
 .bubble {
     background: #CDFEAA;
     border-radius: 0.8em;

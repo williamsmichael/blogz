@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>{{ post.title }}</h1>
-<p>{{ post.body }}</p>
+<p class="preserve_whitespace">{{ post.body }}</p>
     <p class="small">Contributor: <a href="/blog?user={{ post.owner.id }}">{{ post.owner.username }}</a></p>
 <p class="small">{{ post.created }}</p>
 
